@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="./style.css">
+
+  <meta charset="UTF-8">
+  <title>Happy Birthday</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="balloons">
+  <div class="heart-balloon" style="left:20%; animation-delay:0s;"></div>
+  <div class="heart-balloon" style="left:40%; animation-delay:2s;"></div>
+  <div class="heart-balloon" style="left:60%; animation-delay:4s;"></div>
+  <div class="heart-balloon" style="left:80%; animation-delay:1s;"></div>
+</div>
+
+  <div class="balloon-container"></div>
+
+  <audio id="bg-music" src="music/song.mp3" autoplay></audio>
+
+<div class="balloons"></div>
+  
+  <div class="container">
+    <h1>🎉 Happy Birthday 🎉</h1>
+<p>With lots of love & sweetness 💛</p>
+<img src="images/kaju-katli.png" alt="Kaju Katli" width="200">
+      Thank you for being a beautiful part of this world.  
+      Your presence makes life feel a little warmer and a lot brighter.
+    </p>
+  </div>
+  <script src="script.js"></script>
+<script>
+const music = document.getElementById("bgMusic");
+
+const savedTime = localStorage.getItem("musicTime");
+
+if (savedTime) {
+  music.currentTime = savedTime;
+} else {
+  music.currentTime = 55;
+}
+
+music.play();
+
+setInterval(() => {
+  localStorage.setItem("musicTime", music.currentTime);
+}, 1000);
+</script>
+
+</body>
+</html>

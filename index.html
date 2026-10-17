@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Happy Birthday</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="bg-dots">
+  <span style="left:10%; animation-delay:0s;"></span>
+  <span style="left:30%; animation-delay:3s;"></span>
+  <span style="left:50%; animation-delay:6s;"></span>
+  <span style="left:70%; animation-delay:2s;"></span>
+  <span style="left:90%; animation-delay:5s;"></span>
+</div>
+
+  <!-- Music -->
+  <audio id="bg-music" src="music/song.mp3"></audio>
+
+  <div class="container">
+    <h1 class="title">Happy Birthday 💜</h1>
+    <p class="subtitle">A little surprise just for you</p>
+
+    <button id="startBtn">Click for more surprises</button>
+  </div>
+  <script src="script.js"></script>
+ <script>
+const music = document.getElementById("bgMusic");
+
+const savedTime = localStorage.getItem("musicTime");
+
+if (savedTime) {
+  music.currentTime = savedTime;
+} else {
+  music.currentTime = 55;
+}
+
+music.play();
+
+setInterval(() => {
+  localStorage.setItem("musicTime", music.currentTime);
+}, 1000);
+</script>
+ 
+</body>
+</html>

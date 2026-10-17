@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Your Surprise</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<audio id="bg-music" src="music/song.mp3" autoplay></audio>
+   <div class="confetti"></div>
+  <div class="container">
+    <h2 class="title">Click on your favourite picture 💫</h2>
+
+    <div class="card-container">
+      <div class="card" onclick="flipCard(this)">
+        <div class="card-inner">
+          <div class="card-front">
+            <img src="images/pic1.jpg.jpeg">
+          </div>
+          <div class="card-back">
+            <p>Your smile has a quiet magic. It makes everything feel lighter without even trying.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" onclick="flipCard(this)">
+        <div class="card-inner">
+          <div class="card-front">
+            <img src="images/pic2.jpg.jpeg">
+          </div>
+          <div class="card-back">
+            <p>You have this calm and warmth that makes people feel safe just by being around you.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" onclick="flipCard(this)">
+        <div class="card-inner">
+          <div class="card-front">
+            <img src="images/pic3.jpg.jpeg">
+          </div>
+          <div class="card-back">
+            <p>You are effortlessly special. The kind of person people remember without realizing why.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button id="finalBtn" onclick="goFinal()">Click for surprise attack 😌</button>
+  </div>
+<script src="script.js"></script>
+  
+</body>
+</html>
