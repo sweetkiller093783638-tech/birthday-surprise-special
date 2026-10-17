@@ -1,54 +1,318 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Your Surprise</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>A Few Little Things 💗</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            margin: 0;
+            padding: 35px 18px;
+            font-family: "Segoe UI", sans-serif;
+            color: #fff;
+            text-align: center;
+            background: linear-gradient(
+                135deg,
+                #1b102b,
+                #54245f,
+                #a64d79
+            );
+        }
+
+        .page {
+            width: min(100%, 1000px);
+            margin: auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .eyebrow {
+            color: #ffd6ee;
+            font-size: 13px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            font-size: clamp(28px, 6vw, 43px);
+            margin: 15px 0;
+        }
+
+        .intro {
+            max-width: 520px;
+            margin: 0 auto 35px;
+            line-height: 1.8;
+            color: #f8e8ff;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 22px;
+            margin: 35px 0;
+        }
+
+        .photo-card {
+            height: 310px;
+            perspective: 1000px;
+            cursor: pointer;
+            border-radius: 22px;
+            outline-offset: 5px;
+        }
+
+        .card-inner {
+            height: 100%;
+            width: 100%;
+            position: relative;
+            transition: transform 0.7s ease;
+            transform-style: preserve-3d;
+        }
+
+        .photo-card.flipped .card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .front,
+        .back {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            border-radius: 22px;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2);
+        }
+
+        .front {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.11);
+            backdrop-filter: blur(10px);
+        }
+
+        .photo-placeholder {
+            width: 100%;
+            height: 180px;
+            border: 2px dashed rgba(255, 255, 255, 0.5);
+            border-radius: 15px;
+            display: grid;
+            place-items: center;
+            font-size: 48px;
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        .front p {
+            margin: 0;
+            font-size: 14px;
+            color: #ffe3f4;
+        }
+
+        .back {
+            transform: rotateY(180deg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 25px;
+            background: linear-gradient(145deg, #754477, #482449);
+        }
+
+        .back p {
+            font-size: 16px;
+            line-height: 1.9;
+        }
+
+        .card-number {
+            display: block;
+            font-size: 12px;
+            letter-spacing: 2px;
+            color: #ffd6ee;
+            margin-bottom: 14px;
+        }
+
+        .instruction {
+            font-size: 13px;
+            color: #f3cde6;
+            margin: 25px 0;
+        }
+
+        #finalBtn {
+            display: none;
+            margin: 10px auto 0;
+            padding: 14px 25px;
+            border: none;
+            border-radius: 30px;
+            background: #fff0f8;
+            color: #71365f;
+            font-weight: bold;
+            font-size: 15px;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        #finalBtn:hover {
+            transform: translateY(-3px);
+        }
+
+        #progress {
+            color: #ffe0f2;
+            font-size: 13px;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 700px) {
+            .cards {
+                grid-template-columns: 1fr;
+                max-width: 340px;
+                margin: 30px auto;
+            }
+
+            .photo-card {
+                height: 290px;
+            }
+
+            .photo-placeholder {
+                height: 165px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .card-inner {
+                transition: none;
+            }
+        }
+    </style>
 </head>
+
 <body>
-<audio id="bg-music" src="music/song.mp3" autoplay></audio>
-   <div class="confetti"></div>
-  <div class="container">
-    <h2 class="title">Click on your favourite picture 💫</h2>
 
-    <div class="card-container">
-      <div class="card" onclick="flipCard(this)">
-        <div class="card-inner">
-          <div class="card-front">
-            <img src="images/pic1.jpg.jpeg">
-          </div>
-          <div class="card-back">
-            <p>Your smile has a quiet magic. It makes everything feel lighter without even trying.</p>
-          </div>
+    <main class="page">
+
+        <p class="eyebrow">A little something for you ✨</p>
+
+        <h1>Three Little Surprises 💗</h1>
+
+        <p class="intro">
+            Every little detail has a reason to be here.
+            Take your time, explore, and see what you discover. 💌
+        </p>
+
+        <div class="cards">
+
+            <div class="photo-card"
+                 role="button"
+                 tabindex="0"
+                 aria-label="Reveal surprise one"
+                 aria-pressed="false"
+                 onclick="flipCard(this)"
+                 onkeydown="handleCardKey(event, this)">
+
+                <div class="card-inner">
+                    <div class="front">
+                        <div class="photo-placeholder" aria-hidden="true">🌸</div>
+                        <p>Little Surprise No. 1</p>
+                        <p>Tap to reveal ✨</p>
+                    </div>
+
+                    <div class="back">
+                        <p>
+                            <span class="card-number">01 · A LITTLE NOTE</span>
+                            Some surprises are best discovered
+                            one little moment at a time. 💗
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="photo-card"
+                 role="button"
+                 tabindex="0"
+                 aria-label="Reveal surprise two"
+                 aria-pressed="false"
+                 onclick="flipCard(this)"
+                 onkeydown="handleCardKey(event, this)">
+
+                <div class="card-inner">
+                    <div class="front">
+                        <div class="photo-placeholder" aria-hidden="true">💌</div>
+                        <p>Little Surprise No. 2</p>
+                        <p>Tap to reveal ✨</p>
+                    </div>
+
+                    <div class="back">
+                        <p>
+                            <span class="card-number">02 · A LITTLE THOUGHT</span>
+                            Even the smallest details can make
+                            a day feel a little more special. 🌷
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="photo-card"
+                 role="button"
+                 tabindex="0"
+                 aria-label="Reveal surprise three"
+                 aria-pressed="false"
+                 onclick="flipCard(this)"
+                 onkeydown="handleCardKey(event, this)">
+
+                <div class="card-inner">
+                    <div class="front">
+                        <div class="photo-placeholder" aria-hidden="true">🦋</div>
+                        <p>Little Surprise No. 3</p>
+                        <p>Tap to reveal ✨</p>
+                    </div>
+
+                    <div class="back">
+                        <p>
+                            <span class="card-number">03 · ONE MORE THING</span>
+                            There's still a little more waiting
+                            for you beyond these cards. 🎀
+                        </p>
+                    </div>
+                </div>
+            </div>
+
         </div>
-      </div>
 
-      <div class="card" onclick="flipCard(this)">
-        <div class="card-inner">
-          <div class="card-front">
-            <img src="images/pic2.jpg.jpeg">
-          </div>
-          <div class="card-back">
-            <p>You have this calm and warmth that makes people feel safe just by being around you.</p>
-          </div>
-        </div>
-      </div>
+        <p class="instruction">
+            ✨ Tap each card to discover its message ✨
+        </p>
 
-      <div class="card" onclick="flipCard(this)">
-        <div class="card-inner">
-          <div class="card-front">
-            <img src="images/pic3.jpg.jpeg">
-          </div>
-          <div class="card-back">
-            <p>You are effortlessly special. The kind of person people remember without realizing why.</p>
-          </div>
-        </div>
-      </div>
-    </div>
+        <p id="progress" aria-live="polite">
+            0 of 3 surprises discovered
+        </p>
 
-    <button id="finalBtn" onclick="goFinal()">Click for surprise attack 😌</button>
-  </div>
-<script src="script.js"></script>
-  
+        <button id="finalBtn" onclick="goFinal()">
+            Continue to the next surprise 💝
+        </button>
+
+    </main>
+
+    <script src="script.js"></script>
+
+    <script>
+        function handleCardKey(event, card) {
+            if (event.key === "Enter" || event.key === " ") {
+                event.preventDefault();
+                flipCard(card);
+            }
+        }
+    </script>
+
 </body>
 </html>
