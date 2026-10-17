@@ -1,67 +1,52 @@
-// ===== MUSIC SETUP =====
-const music = document.getElementById("bg-music");
-const btn = document.getElementById("startBtn");
+// Birthday Surprise — Interactive Card Logic
 
-let savedTime = localStorage.getItem("musicTime");
-
-if (music) {
-  if (savedTime) {
-    music.currentTime = parseFloat(savedTime);
-  } else {
-    music.currentTime = 55;
-  }
-
-  music.volume = 0.7;
-
-  music.play().catch(() => {
-    // autoplay block ho sakta hai, ignore
-  });
-
-  setInterval(() => {
-    localStorage.setItem("musicTime", music.currentTime);
-  }, 500);
-}
-
-if (btn && music) {
-  btn.addEventListener("click", () => {
-    music.play();
-    setTimeout(() => {
-      window.location.href = "page2.html";
-    }, 800);
-  });
-}
-
-// ===== CARD FLIP LOGIC =====
-let flippedCount = 0;
+const discoveredCards = new Set();
 
 function flipCard(card) {
-  if (!card.classList.contains("flipped")) {
-    card.classList.add("flipped");
-    flippedCount++;
+    const cardIndex = Array.from(
+        document.querySelectorAll(".photo-card")
+    ).indexOf(card);
 
-    if (flippedCount === 3) {
-      const finalBtn = document.getElementById("finalBtn");
-      if (finalBtn) {
-        finalBtn.style.display = "inline-block";
-      }
+    if (cardIndex === -1) return;
+
+    const isFlipped = card.classList.contains("flipped");
+
+    if (isFlipped) {
+        return;
     }
-  }
+
+    card.classList.add("flipped");
+    card.setAttribute("aria-pressed", "true");
+
+    discoveredCards.add(cardIndex);
+
+    updateProgress();
+}
+
+function updateProgress() {
+    const totalCards = document.querySelectorAll(".photo-card").length;
+    const discovered = discoveredCards.size;
+
+    const progress = document.getElementById("progress");
+    const finalButton = document.getElementById("finalBtn");
+
+    if (progress) {
+        progress.textContent =
+            `${discovered} of ${totalCards} surprises discovered`;
+    }
+
+    if (finalButton) {
+        finalButton.style.display =
+            discovered === totalCards && totalCards > 0
+                ? "inline-block"
+                : "none";
+    }
 }
 
 function goFinal() {
-  window.location.href = "page3.html";
-}
+    const totalCards = document.querySelectorAll(".photo-card").length;
 
-// ===== BALLOONS =====
-const balloonContainer = document.querySelector(".balloons");
-
-if (balloonContainer) {
-  for (let i = 0; i < 20; i++) {
-    const balloon = document.createElement("div");
-    balloon.classList.add("balloon");
-    balloon.style.left = Math.random() * 100 + "vw";
-    balloon.style.animationDuration = 8 + Math.random() * 5 + "s";
-    balloon.style.animationDelay = Math.random() * 5 + "s";
-    balloonContainer.appendChild(balloon);
-  }
+    if (discoveredCards.size === totalCards && totalCards > 0) {
+        window.location.href = "page3.html";
+    }
 }
