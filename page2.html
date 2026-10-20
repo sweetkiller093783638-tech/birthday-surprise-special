@@ -63,7 +63,45 @@
             gap: 22px;
             margin: 35px 0;
         }
+/* Each card and its appreciation line */
+.photo-item {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
 
+/* Appreciation line stays hidden until the card flips */
+.appreciation-line {
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    margin: 0;
+    padding: 0 5px;
+    color: #ffe3f4;
+    font-size: 15px;
+    line-height: 1.8;
+    transform: translateY(-8px);
+    transition:
+        opacity 0.6s ease,
+        transform 0.6s ease,
+        max-height 0.6s ease,
+        margin 0.6s ease;
+}
+
+/* Soft reveal */
+.photo-item.revealed .appreciation-line {
+    opacity: 1;
+    max-height: 220px;
+    margin-top: 16px;
+    transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .appreciation-line {
+        transition: none;
+    }
+}
        .photo-card {
     position: relative;
     z-index: 1;
@@ -352,7 +390,8 @@
         </p>
 
         <div class="cards">
-
+<div class="photo-item">
+    
             <div class="photo-card"
                  role="button"
                  tabindex="0"
@@ -368,7 +407,7 @@
                         <p>Tap to reveal ✨</p>
                     </div>
 
-                    <div class="back">
+                                       <div class="back">
                         <p>
                             <span class="card-number">01 · A LITTLE NOTE</span>
                             Some surprises are best discovered
@@ -378,6 +417,16 @@
                 </div>
             </div>
 
+            <p class="appreciation-line">
+                There's something so beautiful about this picture—the
+                way your eyes are closed, your hair softly falls across
+                your face, and that gentle smile makes the whole moment
+                feel so naturally lovely. You don't even have to try;
+                there's a quiet beauty in the way you simply are. 💚🌸
+            </p>
+        </div>
+
+        <div class="photo-item">
             <div class="photo-card"
                  role="button"
                  tabindex="0"
@@ -385,7 +434,6 @@
                  aria-pressed="false"
                  onclick="flipCard(this)"
                  onkeydown="handleCardKey(event, this)">
-
                 <div class="card-inner">
                     <div class="front">
                         <div class="photo-placeholder" aria-hidden="true">💌</div>
@@ -393,7 +441,7 @@
                         <p>Tap to reveal ✨</p>
                     </div>
 
-                    <div class="back">
+                                        <div class="back">
                         <p>
                             <span class="card-number">02 · A LITTLE THOUGHT</span>
                             Even the smallest details can make
@@ -403,6 +451,17 @@
                 </div>
             </div>
 
+            <p class="appreciation-line">
+                It's the little things in these pictures that make them
+                so lovely—the way your hair frames your face, the tiny
+                bindi above your eyes, and those beautiful brown eyes
+                that seem to hold so much expression. Every picture
+                shows a different little detail, and somehow, each one
+                makes you just as lovely in its own way. 🤎🌷
+            </p>
+        </div>
+
+        <div class="photo-item">
             <div class="photo-card"
                  role="button"
                  tabindex="0"
@@ -417,7 +476,6 @@
                         <p>Little Surprise No. 3</p>
                         <p>Tap to reveal ✨</p>
                     </div>
-
                     <div class="back">
                         <p>
                             <span class="card-number">03 · ONE MORE THING</span>
@@ -428,6 +486,14 @@
                 </div>
             </div>
 
+            <p class="appreciation-line">
+                The deep red saree, those two little strands of hair
+                framing your face, and the way you look straight at
+                the camera give this picture such a beautiful mix of
+                grace and confidence. There's something especially
+                lovely about your expression here—it feels calm,
+                self-assured, and completely your own. ❤️✨
+            </p>
         </div>
 
         <p class="instruction">
