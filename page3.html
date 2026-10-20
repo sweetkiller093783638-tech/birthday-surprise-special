@@ -278,6 +278,32 @@
         </p>
 
     </main>
+<script>
+(function () {
+    if (sessionStorage.getItem("birthdayMusicStarted") !== "yes") return;
 
+    const audio = new Audio("alfaaz.mp3");
+    const savedTime = Number(
+        sessionStorage.getItem("birthdayMusicTime") || 72
+    );
+
+    audio.addEventListener("loadedmetadata", () => {
+        audio.currentTime = savedTime;
+        audio.play().catch(() => {
+            console.log("Music playback needs user interaction.");
+        });
+    }, { once: true });
+
+    audio.addEventListener("timeupdate", () => {
+        sessionStorage.setItem("birthdayMusicTime", audio.currentTime);
+    });
+
+    window.addEventListener("pagehide", () => {
+        sessionStorage.setItem("birthdayMusicTime", audio.currentTime);
+    });
+
+    window.birthdayAudio = audio;
+})();
+</script>
 </body>
 </html>
