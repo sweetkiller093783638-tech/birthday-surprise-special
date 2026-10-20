@@ -182,6 +182,12 @@
         </p>
 
     </main>
-
+<script>
+document.getElementById("startSurpriseBtn").addEventListener("click", () => {
+    sessionStorage.setItem("birthdayMusicStarted", "yes");
+    sessionStorage.setItem("birthdayMusicTime", "72");
+    window.location.href = "page2.html";
+});
+</script>
 </body>
 </html>
