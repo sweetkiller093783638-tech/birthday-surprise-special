@@ -56,3 +56,42 @@ function goFinal() {
         window.location.href = "page3.html";
     }
 }
+// Birthday Surprise — Music System 🎵
+
+const MUSIC_FILE = "alfaaz.mp3";
+const MUSIC_START_TIME = 72;
+
+function startBirthdayMusic() {
+    const audio = new Audio(MUSIC_FILE);
+    audio.loop = false;
+
+    const savedTime = sessionStorage.getItem("birthdayMusicTime");
+    const musicStarted = sessionStorage.getItem("birthdayMusicStarted");
+
+    audio.addEventListener("loadedmetadata", () => {
+        if (savedTime !== null && musicStarted === "yes") {
+            audio.currentTime = Number(savedTime);
+        } else {
+            audio.currentTime = MUSIC_START_TIME;
+            sessionStorage.setItem("birthdayMusicStarted", "yes");
+        }
+
+        audio.play().catch(error => {
+            console.log("Music playback needs another user interaction.", error);
+        });
+    });
+
+    const saveTime = () => {
+        if (!audio.paused) {
+            sessionStorage.setItem(
+                "birthdayMusicTime",
+                String(audio.currentTime)
+            );
+        }
+    };
+
+    audio.addEventListener("timeupdate", saveTime);
+    window.addEventListener("pagehide", saveTime);
+
+    window.birthdayAudio = audio;
+}
