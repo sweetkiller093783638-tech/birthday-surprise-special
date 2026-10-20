@@ -511,7 +511,35 @@
     </main>
 
     <script src="script.js"></script>
+<script>
+(function () {
+    const started = sessionStorage.getItem("birthdayMusicStarted");
 
+    if (started !== "yes") return;
+
+    const audio = new Audio("alfaaz.mp3");
+    const savedTime = Number(
+        sessionStorage.getItem("birthdayMusicTime") || 72
+    );
+
+    audio.addEventListener("loadedmetadata", () => {
+        audio.currentTime = savedTime;
+        audio.play().catch(() => {
+            console.log("Tap the page to resume music.");
+        });
+    }, { once: true });
+
+    audio.addEventListener("timeupdate", () => {
+        sessionStorage.setItem("birthdayMusicTime", audio.currentTime);
+    });
+
+    window.addEventListener("pagehide", () => {
+        sessionStorage.setItem("birthdayMusicTime", audio.currentTime);
+    });
+
+    window.birthdayAudio = audio;
+})();
+</script>
     <script>
         function handleCardKey(event, card) {
             if (event.key === "Enter" || event.key === " ") {
