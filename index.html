@@ -183,11 +183,24 @@
 
     </main>
 <script>
+<script>
 document.getElementById("startSurpriseBtn").addEventListener("click", () => {
-    sessionStorage.setItem("birthdayMusicStarted", "yes");
-    sessionStorage.setItem("birthdayMusicTime", "72");
-    window.location.href = "page2.html";
+    const audio = new Audio("alfaaz.mp3");
+
+    audio.addEventListener("loadedmetadata", () => {
+        audio.currentTime = 72;
+
+        audio.play().then(() => {
+            sessionStorage.setItem("birthdayMusicStarted", "yes");
+            sessionStorage.setItem("birthdayMusicTime", String(audio.currentTime));
+            window.location.href = "page2.html";
+        }).catch(error => {
+            console.error("Music playback failed:", error);
+            alert("Please click the button again to start the music.");
+        });
+    }, { once: true });
 });
+</script>
 </script>
 </body>
 </html>
