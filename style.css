@@ -261,3 +261,11 @@ z-index: 0;
     opacity: 1;
   }
 }
+/* Birthday surprise photos */
+.surprise-photo {
+    display: block;
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 12px;
+}
