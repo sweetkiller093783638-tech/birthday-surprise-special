@@ -15,8 +15,14 @@ function flipCard(card) {
         return;
     }
 
-    card.classList.add("flipped");
+        card.classList.add("flipped");
     card.setAttribute("aria-pressed", "true");
+
+    const photoItem = card.closest(".photo-item");
+
+    if (photoItem) {
+        photoItem.classList.add("revealed");
+    }
 
     discoveredCards.add(cardIndex);
 
